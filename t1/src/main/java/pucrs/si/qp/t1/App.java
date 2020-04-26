@@ -1,5 +1,6 @@
 package pucrs.si.qp.t1;
 
+import java.lang.instrument.IllegalClassFormatException;
 
 /**
  * 
@@ -8,14 +9,8 @@ package pucrs.si.qp.t1;
  */
 public class App {
 
-	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @param c
-	 * @return
-	 */
-	public static int identificaTriangulo(int a, int b, int c) {
+	public static int identificaTriangulo(int a, int b, int c) throws TrianguloRNException {
+		AppRNVal.validaEntradasTriangulo(a, b, c);
 		if ((a < b + c) && (b < a + c) && (c < b + a)) {
 			if ((a == b) && (b == c))
 				return tipos.EQUILATERO.value();
@@ -33,6 +28,10 @@ public class App {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Triângulos!");
-		System.out.println(identificaTriangulo(2, 3, 4));
+		try {
+			System.out.println(identificaTriangulo(2, 3, 4));
+		} catch (TrianguloRNException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
